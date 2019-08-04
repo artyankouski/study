@@ -20,29 +20,26 @@ namespace TF.Steps
         public void OpenBrowserAndGoToLoginPage()
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            driver.Navigate().GoToUrl("https://app.dealcloud.eu");
+            driver.Navigate().GoToUrl("https://app.dealcloud.eu/");
         }
         [Given(@"I fill in (.*) and (.*)")]
         public void FillInUsernameAndPassword(string p0, string p1)
         {
-            loginPage.EnterUsername(p0);
-            loginPage.EnterPassword(p1);
+            loginPage.EnterUsername("ayankouski@dealcloud.com");
+            loginPage.EnterPassword("kHrkw7bb?");
         }
         [When(@"I select client site")]
         public void SelectSite()
         {
-            var ddd = 1 + 1;
+            BasePage.WaitForLoad(driver, 16);
+            loginPage.ChooseClient();
         }
         [Then(@"navigated to Home Page")]
         public void NavigateToHomepage()
         {
-            var Title = driver.Title;
-            Assert.AreEqual("Intapp | Reporting", Title);
-        }
-        [TearDown]
-        public void CloseBrowser()
-        {
+            loginPage.CheckAlchemyLogo();
             driver.Quit();
+
         }
     }
 }
